@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: githubactioncicdapimessage
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: githubactioncicdapimessage
+  template:
+    metadata:
+      labels:
+        app: githubactioncicdapimessage
+    spec:
+      containers:
+      - name: githubactioncicdapimessage
+        image: githubactioncicdapimessage
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8080
+---
+kind: Service
+metadata:
+  name: githubactioncicdapimessage
+spec:
+  selector:
+    app: githubactioncicdapimessage
+  type: NodePort
+  ports:
+    - protocol : "TCP"   
+      port: 8080
+      targetPort: 8080
